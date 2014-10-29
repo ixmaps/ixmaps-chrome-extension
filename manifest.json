@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "IXmaps Tracker",
+    "description": "Track your web navigation to your IXmaps.",
+    "icons": {
+        "128": "ixmaps-icon.png"
+    },
+    "version": "1.0.0",
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://ajax.googleapis.com; object-src 'self'",
+    "permissions": [
+        "http://*/",
+        "history", "storage", "geolocation", "webRequest", "history"
+    ],
+    "browser_action": {
+        "default_icon": "ixmaps-icon.png",
+        "default_popup": "src/popup.html"
+    },
+    "background": {
+        "scripts": ["src/traceLib.js","src/background.js"],
+        "persistent": true
+    }
+}
