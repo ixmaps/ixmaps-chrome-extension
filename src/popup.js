@@ -3,7 +3,7 @@
 'use strict';
 
 var traceLib = window.traceLib;
-
+var TRSETS_BASE = 'http://ixmaps.ca/trsets/';
 $(document).ready(function() {
   var startTracking = function(data) {
     // Save in storage
@@ -26,7 +26,7 @@ $(document).ready(function() {
   });
 
   // retrieve the ixmaps trsets and add them to the select
-  $.get('http://ixmaps.ca/trsets/', function( data ) {
+  $.get(TRSETS_BASE, function( data ) {
     $('#trsets').html(data);
     var links = $('#trsets a');
     // re-populate trset select
@@ -56,21 +56,18 @@ $(document).ready(function() {
   });
 
   // Bind new settings
-  $("#update").click(function() {
-    var data = {};
-    traceLib.stored.forEach(function(field) {
-      data[field] = $('#' + field).val() || '';
-    });
+  $('#update').click(function() {
+    var data = defaultValues();
     startTracking(data);
     setLink();
   });
 
   // Submit trset or URL
-  $("#traceHost").click(function() {
-    traceLib.queueRequest({
-      'type': 'submitted',
-      'data': $('#trhost').val()
-    });
+  $('#traceHost').click(function() {
+    var data = defaultValues();
+    data.type = 'submitted';
+    data.data = $('#trhost').val();
+    traceLib.queueRequest(data);
   });
 
   // update the dashboard link
@@ -78,3 +75,12 @@ $(document).ready(function() {
     $('#dashboard').html('<a target="IXmapsPaths" href="' + $('#server').val() + '/">Local dashboard</a>');
   }
 });
+
+// Return the default stored values
+function defaultValues() {
+  var data = {};
+  traceLib.stored.forEach(function(field) {
+    data[field] = $('#' + field).val() || '';
+  });
+  return data;
+}
