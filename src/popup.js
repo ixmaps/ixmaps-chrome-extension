@@ -8,7 +8,7 @@ $(document).ready(function() {
   var startTracking = function(data) {
     // Save in storage
     chrome.storage.sync.set(data);
-    console.log('UPDATED', data);
+    traceLib.monitor();
   };
 
   // populate with recent hosts
@@ -66,10 +66,10 @@ $(document).ready(function() {
   });
 
   // Submit trset or URL
-  $("#submit").click(function() {
+  $("#traceHost").click(function() {
     traceLib.queueRequest({
       'type': 'submitted',
-      'data': $('.host').val()
+      'data': $('#trhost').val()
     });
   });
 
