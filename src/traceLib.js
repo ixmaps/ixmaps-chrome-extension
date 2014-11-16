@@ -21,7 +21,6 @@
       console.log('monitor');
       // Listen for config changes
       chrome.storage.onChanged.addListener(function(changes, namespace) {
-        console.log('onChanged');
         console.log('Changes in settings', changes);
         chrome.storage.sync.get(stored, function(data) {
           console.log('data', JSON.stringify(data));
