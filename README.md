@@ -7,7 +7,7 @@
 
 # Configuration
 
-* Select the ixmaps icon from the Chrome menu bar
+* Select the IXmaps icon from the Chrome menu bar
 * Configure the server eg http://localhost:8181
 * Enter your Submitter ID and postal code as appropriate
 * Select the `traceroute` command (default) or paris-traceroute if installed on the server

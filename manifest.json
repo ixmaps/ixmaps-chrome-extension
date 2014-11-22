@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "IXmaps Tracker",
-    "description": "Track your web navigation to your IXmaps.",
+    "name": "IXmaps reporter",
+    "description": "Connects to IXmaps",
     "icons": {
         "128": "ixmaps-icon.png"
     },
