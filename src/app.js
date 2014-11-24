@@ -3,7 +3,6 @@
 'use strict';
 
 var traceLib = window.traceLib;
-console.log('TL', traceLib);
 var TRSETS_BASE = 'http://ixmaps.ca/trsets/';
 $(document).ready(function() {
 

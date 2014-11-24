@@ -28,7 +28,6 @@
       }
       stored.forEach(function(f) { config[f] = data[f]; });
       config.requestURL = config.server + '/api/requests';
-      console.log('ii', config);
       console.log('init settings', config);
       this.valid = true;
     },
