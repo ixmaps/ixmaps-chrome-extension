@@ -2,9 +2,10 @@
     <head>
         <title>reportr Configuration</title>
         <style>
-        body {
-          width: 100%;
-        }
+          body {
+            width: 99%;
+            background: #abc;
+          }
           label {
             float:left;
             width:25%;
@@ -15,13 +16,15 @@
           }
 
           fieldset {
-            border:1px solid grey
+            background: white;
+            border: 1px solid grey;
           }
 
           legend {
             padding: 0.2em 0.5em;
-            border:1px solid grey;
             text-align:left;
+            background: white;
+            border: 1px solid grey;
           }
           h1 {
             font-size: 100%;
@@ -39,8 +42,25 @@
         <span id="dashboard"></span>
         <h1><a href="http://ixmaps.ca">IXmaps</a></h1>
       </div>
-      <fieldset>
-        <legend>Instance</legend>
+
+      <fieldset class="needsConfig" style="display: none; float: right; width: 47%">
+        <legend>Trace</legend>
+        <label for="trhost">Host</label>
+        <input id="trhost" size="30" />
+        <button id="traceHost">Submit</button>
+        <br />
+        <br />
+        <select class="selectHost" style="width: 100%""><option value="">Select a host option</option><optgroup id="trset" label="TrSet"></optgroup><optgroup id="history" label="Recent history"></optgroup"></select>
+      </fieldset>
+
+      <fieldset style="float: left; width: 47%">
+      <legend>Instance</legend>
+        <div style="float: right; width: 47%">
+        <label for="command">Command</label><input id="command" value="traceroute" />
+        <br />
+        <label for="args">Args</label><textarea id="args"></textarea><br />
+        <span style="text-align: right"><button id="saveConfig">Save</button></span>
+      </div>
         <label for="server">Server</label>
         <input id="server" type="text" value="http://localhost:8181" />
         <br />
@@ -49,25 +69,15 @@
         <br />
         <label for="postalcode">Postal code</label>
         <input id="postalcode" value="M1M" size="6" />
-        <br />
-        <br />
-        <label for="command">Command</label><input id="command" value="traceroute" />
-        <br />
-        <label for="args">Args</label><input id="args" size="30" />
-        <br />
-        <button id="saveConfig">Save</button>
-      </fieldset>
+    </fieldset>
 
+      <br style="clear: both" />
       <br />
 
-      <fieldset id="doTrace" style="display: none">
-        <legend>Trace</legend>
-        <label for="trhost">Host</label>
-        <input id="trhost" size="30" />
-        <button id="traceHost">Submit</button>
-        <br />
-        <br />
-        <select class="selectHost" style="width: 100%""><option value="">Select a host option</option><optgroup id="trset" label="TrSet"></optgroup><optgroup id="history" label="Recent history"></optgroup"></select>
+      <fieldset class="needsConfig" style="display: none">
+        <legend>View</legend>
+        <iframe frameborder="0" id="viewport" style="width: 100%; height: 100%">
+        </iframe>
       </fieldset>
 
       <div id="trsets" style="display: none">

@@ -61,9 +61,9 @@ $(document).ready(function() {
   function resetUI() {
     if (traceLib.valid) {
       setLink();
-      $('#doTrace').show();
+      $('.needsConfig').show();
     } else {
-      $('#doTrace').hide();
+      $('.needsConfig').hide();
     }
   }
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
 
   // update the dashboard link
   function setLink() {
-    $('#dashboard').html('<a target="IXmapsPaths" href="' + $('#server').val() + '/">Local dashboard</a>');
+    $('#viewport').attr('src', $('#server').val());
   }
 });
 
