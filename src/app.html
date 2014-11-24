@@ -3,7 +3,7 @@
         <title>reportr Configuration</title>
         <style>
         body {
-          width: 40em;
+          width: 100%;
         }
           label {
             float:left;
@@ -36,9 +36,9 @@
     </head>
     <body>
       <div>
-      <span id="dashboard"></span>
-      <h1><a href="http://ixmaps.ca">IXmaps</a></h1>
-    </div>
+        <span id="dashboard"></span>
+        <h1><a href="http://ixmaps.ca">IXmaps</a></h1>
+      </div>
       <fieldset>
         <legend>Instance</legend>
         <label for="server">Server</label>
@@ -55,12 +55,12 @@
         <br />
         <label for="args">Args</label><input id="args" size="30" />
         <br />
-        <button id="update">Update</button>
+        <button id="saveConfig">Save</button>
       </fieldset>
 
       <br />
 
-      <fieldset>
+      <fieldset id="doTrace" style="display: none">
         <legend>Trace</legend>
         <label for="trhost">Host</label>
         <input id="trhost" size="30" />
@@ -74,6 +74,6 @@
       </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
       <script src="traceLib.js"></script>
-      <script src="popup.js"></script>
+      <script src="app.js"></script>
     </body>
 </html>

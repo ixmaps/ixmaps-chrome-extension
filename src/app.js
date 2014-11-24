@@ -3,13 +3,9 @@
 'use strict';
 
 var traceLib = window.traceLib;
+console.log('TL', traceLib);
 var TRSETS_BASE = 'http://ixmaps.ca/trsets/';
 $(document).ready(function() {
-  var startTracking = function(data) {
-    // Save in storage
-    chrome.storage.sync.set(data);
-    traceLib.monitor();
-  };
 
   // populate with recent hosts
   chrome.history.search({ text: '', maxResults: 10}, function(historyItems) {
@@ -26,7 +22,7 @@ $(document).ready(function() {
   });
 
   // retrieve the ixmaps trsets and add them to the select
-  $.get(TRSETS_BASE, function( data ) {
+  $.get(TRSETS_BASE, function(data) {
     $('#trsets').html(data);
     var links = $('#trsets a');
     // re-populate trset select
@@ -39,14 +35,37 @@ $(document).ready(function() {
     });
   });
 
-  // Load settings
+  // Load initial settings
   chrome.storage.sync.get(traceLib.stored, function(data) {
-    startTracking(data);
-    traceLib.stored.forEach(function(field) {
-      $('#' + field).val(data[field]);
+    console.log('storage.get', data);
+    traceLib.init(data);
+
+    if (traceLib.valid) {
+      traceLib.stored.forEach(function(field) {
+        $('#' + field).val(data[field]);
+      });
+    }
+    resetUI();
+    // react to other changes
+    chrome.storage.onChanged.addListener(function(changes, namespace) {
+    console.log('storage.changed', changes);
+      chrome.storage.sync.get(traceLib.stored, function(data) {
+        traceLib.init(data);
+        resetUI();
+      });
     });
-    setLink();
   });
+
+
+  // show options according to config validity
+  function resetUI() {
+    if (traceLib.valid) {
+      setLink();
+      $('#doTrace').show();
+    } else {
+      $('#doTrace').hide();
+    }
+  }
 
   // User has selected from a list
   $('.selectHost').on('change', function() {
@@ -56,10 +75,9 @@ $(document).ready(function() {
   });
 
   // Bind new settings
-  $('#update').click(function() {
+  $('#saveConfig').click(function() {
     var data = defaultValues();
-    startTracking(data);
-    setLink();
+    chrome.storage.sync.set(data);
   });
 
   // Submit trset or URL

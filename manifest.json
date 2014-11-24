@@ -13,7 +13,7 @@
   ],
   "app": {
     "launch": {
-      "local_path": "src/main.html"
+      "local_path": "src/app.html"
     }
   }
 }

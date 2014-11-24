@@ -14,27 +14,24 @@
   var stored = ['server', 'submitter', 'postalcode', 'command', 'args'];
 
   window.traceLib = {
+    // current configuration validity
+    valid : false,
     // Export stored values
     stored : stored,
-    // Begin watching config setup and changes.
-    monitor : function() {
-      console.log('monitor');
-      // Listen for config changes
-      chrome.storage.onChanged.addListener(function(changes, namespace) {
-        console.log('Changes in settings', changes);
-        chrome.storage.sync.get(stored, function(data) {
-          console.log('data', JSON.stringify(data));
-          init(data);
-        });
-      });
-
-      // Get current settings and init
-      chrome.storage.sync.get(stored, function(data) {
-        console.log('get');
-        init(data);
-      });
+    // Initialize configuration parameters
+    init : function(data) {
+      console.log('init', data);
+      if (!data.server || !data.submitter) {
+        console.log('Invalid settings', data);
+        this.valid = false;
+        return;
+      }
+      stored.forEach(function(f) { config[f] = data[f]; });
+      config.requestURL = config.server + '/api/requests';
+      console.log('ii', config);
+      console.log('init settings', config);
+      this.valid = true;
     },
-
     /// queue and debounce requests
     queueRequest : function(request) {
       if (request.properties && request.properties.url === config.requestURL) {
@@ -54,21 +51,7 @@
     // send any queued requests
     doRequests : doRequests
   };
-
-  // Initialize configuration parameters
-  function init(data) {
-    console.log('init', data);
-    if (!data.server || !data.submitter) {
-      console.log('Invalid settings', data);
-      return;
-    }
-    stored.forEach(function(f) { config[f] = data[f]; });
-    config.requestURL = config.server + '/api/requests';
-    console.log('ii', config);
-    console.log('init settings', config);
-  }
-
-  function doRequests() {
+function doRequests() {
     var sendingRequests = requests.slice(0);
     requests = [];
     var xhr = new XMLHttpRequest();
