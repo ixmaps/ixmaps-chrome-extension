@@ -12,3 +12,7 @@
 * Enter your Submitter ID and postal code as appropriate
 * Select the `traceroute` command (default) or paris-traceroute if installed on the server
 * Select Update to save the settings
+
+# Notes
+
+https://developer.chrome.com/native-client/devguide/tutorial/tutorial-part1
